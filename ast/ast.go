@@ -20,10 +20,17 @@ type Program struct {
 	Statements []Statement
 }
 
+// statements
+
 type LetStatement struct {
-	Token token.Token
+	Token token.Token // 'let' token
 	Name  *Identifier
 	Value Expression
+}
+
+type ReturnStatement struct {
+	Token       token.Token // 'return' token
+	ReturnValue Expression
 }
 
 type Identifier struct {
@@ -45,6 +52,14 @@ func (ls *LetStatement) statementNode() {
 
 func (ls *LetStatement) TokenLiteral() string {
 	return ls.Token.Literal
+}
+
+func (rs *ReturnStatement) statementNode() {
+
+}
+
+func (rs *ReturnStatement) TokenLiteral() string {
+	return rs.Token.Literal
 }
 
 func (i *Identifier) expressionNode() {

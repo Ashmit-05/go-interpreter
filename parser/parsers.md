@@ -59,3 +59,7 @@ AST :
     }
 }
 ```
+
+## Note on helper functions
+The `expectPeek` method is one of the "assertion functions" nearly all parsers share. Their primary purpose is to enforce the correctness of the order of the tokens by checking the type of the next token. Our `expectPeek` here checks the type of the `peekToken` and only if the type is correct does it advance the tokens by calling `nextToken`.
+If it does not get expected type, we return nil, which gets ignored in `ParseProgram`, which results in entire statements being ignored becuase of an error in the input.
