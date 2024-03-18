@@ -63,3 +63,8 @@ AST :
 ## Note on helper functions
 The `expectPeek` method is one of the "assertion functions" nearly all parsers share. Their primary purpose is to enforce the correctness of the order of the tokens by checking the type of the next token. Our `expectPeek` here checks the type of the `peekToken` and only if the type is correct does it advance the tokens by calling `nextToken`.
 If it does not get expected type, we return nil, which gets ignored in `ParseProgram`, which results in entire statements being ignored becuase of an error in the input.
+
+
+## Top Down Operator Precedence
+Top Down Operator Precedence Parsing, or Pratt parsing, was invented as an alternative to parsers based on context-free gram- mars and the Backus-Naur-Form.
+And that is also the main difference: instead of associating parsing functions (think of our parseLetStatement method here) with grammar rules (defined in BNF or EBNF), Pratt asso- ciates these functions (which he calls “semantic code”) with single token types. A crucial part of this idea is that each token type can have two parsing functions associated with it, depending on the token’s position - infix or prefix.
