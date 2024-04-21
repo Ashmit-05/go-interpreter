@@ -68,3 +68,7 @@ If it does not get expected type, we return nil, which gets ignored in `ParsePro
 ## Top Down Operator Precedence
 Top Down Operator Precedence Parsing, or Pratt parsing, was invented as an alternative to parsers based on context-free gram- mars and the Backus-Naur-Form.
 And that is also the main difference: instead of associating parsing functions (think of our parseLetStatement method here) with grammar rules (defined in BNF or EBNF), Pratt asso- ciates these functions (which he calls “semantic code”) with single token types. A crucial part of this idea is that each token type can have two parsing functions associated with it, depending on the token’s position - infix or prefix.
+
+## Protocol for our parsing functions 
+parsePrefixExpression starts with p.curToken being the token of the prefix operator and it returns with p.curToken being the operand of the prefix expression, which is the last token of the expression. The tokens get advanced just enough, which works beautifully. The neat thing is how few lines of code are needed for this. The power lies in the recursive approach.
+Granted, the precedence argument in parseExpression is confusing, since it’s unused. But we’ve already seen something important about its usage: the value changes depending on the caller’s knowledge and its context. parseExpressionStatement (the top-level method that kicks off expression parsing here) knows nothing about a precedence level and just uses LOWEST. But parsePrefixExpression passes the PREFIX precedence to parseExpression, since it’s parsing a prefix expression.
